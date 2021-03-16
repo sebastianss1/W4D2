@@ -1,37 +1,49 @@
+require_relative "./Pieces/Piece.rb"
 class Board
 
-    BOARD_PIECES = {
-        :KING => [[0,3], [7,3]],
-        :QUEEN => [[0,4], [7, 4]],
-        :KNIGHT => [[0,1], [0, 6], [7,1], [7, 6]],
-        :ROOK => [[0,0], [0,7], [7,0], [7,7]],
-        :BISHOP => [[0,2], [0,5], [7,2], [7,5]]
-    }
-
-
     def self.populate
-       empty_board = Array.new(8) { Array.new(8, []) } 
-
-        BOARD_PIECES.each do |key , value|
-            value.each do |pos|
-                empty_board[pos[0]][pos[1]] = key
+        empty_board = Array.new(8) { Array.new(8, [nil]) } 
+        empty_board.each_with_index do |row, idx1|
+            row.each_with_index do |ele, idx2|
+                if idx1 == 0 || idx1 == 1 || idx1 == 6 || idx1 == 7
+                    empty_board[idx1][idx2] = Piece.new 
+                end
             end
-        end 
+        end
         empty_board
     end 
-
+    attr_reader :board
     def initialize
         @board = Board.populate
-
-
-      
-        #row 0, 1, 6, 7 will be populated
-        #row 0 and 7 are NOT pawns
-        #row 1 and 6 are pawns 
-        #rows 2 - 5 are empty aka nullpieces 
     end 
 
+    def valid_pos?(pos)
+        r = pos[0]
+        c = pos[1]
+        if r > board.length-1 || r < 0 
+            return false
+        elsif c > board.length-1 || c < 0 
+            return false
+        end
+        true
+    end
 
+    def [](pos)
+        r,c = pos[0],pos[1]
+        board[r][c]
+    end
+        
+
+    def move_piece(start_pos, end_pos)
+        if start_pos.nil? || !valid_pos?(start_pos)
+            raise "Select a valid starting position"
+        elsif
+            !valid_pos?(end_pos) && !end_pos.nil?
+            raise 'Select a valid end position'
+        else
+            board[start_pos], board[end_pos] = board[end_pos], board[start_pos]
+        end
+    end
 
 
 end 
