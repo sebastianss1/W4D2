@@ -1,4 +1,8 @@
+require "byebug"
+
 require_relative "./Pieces/Piece.rb"
+
+
 class Board
 
     def self.populate
@@ -12,10 +16,27 @@ class Board
         end
         empty_board
     end 
+
+
+
     attr_reader :board
+
+
     def initialize
         @board = Board.populate
     end 
+
+    def [](pos)
+        row, col = pos
+        @board[row][col]
+    end
+
+     def []=(pos , value)
+        row = pos[0]
+        col = pos[1]
+        @board[row][col] = value
+    end
+        
 
     def valid_pos?(pos)
         r = pos[0]
@@ -28,22 +49,22 @@ class Board
         true
     end
 
-    def [](pos)
-        r,c = pos[0],pos[1]
-        board[r][c]
-    end
-        
+
 
     def move_piece(start_pos, end_pos)
+        # debugger
         if start_pos.nil? || !valid_pos?(start_pos)
             raise "Select a valid starting position"
         elsif
             !valid_pos?(end_pos) && !end_pos.nil?
             raise 'Select a valid end position'
         else
-            board[start_pos], board[end_pos] = board[end_pos], board[start_pos]
+           board[start_pos[0], start_pos[1]] = board[end_pos[0], end_pos[1]]
         end
     end
 
 
 end 
+
+# p b = Board.new
+# p b.move_piece([0,0], [3,4])
