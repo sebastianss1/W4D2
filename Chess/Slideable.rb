@@ -34,21 +34,21 @@ module Slideable
             d2 = direction[1] #[1]
             possible_moves << grow_unblocked_moves_in_dir(d1,d2)
         end 
-        possible_moves
+        possible_moves 
     end
 
     private
     
     def grow_unblocked_moves_in_dir(dx, dy) #[0,0] [1,1]
+        # debugger
         unblocked_moves = []
         i = dx+ self.pos[0] #-1
         j = dy + self.pos[1] #-1
-        position = [i,j]
-        while board.valid_pos?(position)
-            if board[position] != [nil] && self.color != board[position].color
-                unblocked_moves << [i,j] 
+        while board.valid_pos?([i,j])
+            if board[[i,j]] != [nil] && self.color != board[[i,j]].color
+                unblocked_moves << [[i,j]] 
                 break
-            elsif board[position] != [nil] && self.color == board[position].color
+            elsif board[[i,j]] != [nil] && self.color == board[[i,j]].color
                 break
             else
                 unblocked_moves << [i,j] 
@@ -56,15 +56,7 @@ module Slideable
             i+= dx 
             j+= dy 
         end
-        # diff_pos = dx + self.pos[0], dy + self.pos[1]
-        # #1, 1
-        # new_moves = []
-
-        # until !valid_pos(diff_pos)
-        #     diff_pos += [dx, dy] 
-        #     new_moves << grow_unblocked_moves_in_dir(diff_pos[0], diff_pos[1])
-        # end 
-        new_moves 
+        unblocked_moves
     end
 
 end
