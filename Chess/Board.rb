@@ -2,6 +2,7 @@ require "byebug"
 require_relative "./Piece.rb"
 require_relative "./Queen.rb"
 require_relative "./King.rb"
+require_relative "./Knight.rb"
 
 class Board
 

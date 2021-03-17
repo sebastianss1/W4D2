@@ -17,13 +17,26 @@ module Stepable
         [1, -1],#left down
         [1, 1], #right down
     ].freeze
+    KNIGHT_DIFFS = [
+        [2,1],
+        [1,2], 
+        [2,-1], 
+        [-1,2],
+        [-1,-2], 
+        [-2,-1], 
+        [1,-2], 
+        [-2,1] 
+    ].freeze
 
         def king_diffs
             KING_DIFFS
         end 
+        def knight_diffs
+            KNIGHT_DIFFS
+        end 
 
     def moves
-        debugger
+        # debugger
         possible_moves = []
         self.move_diffs.each do |move|
             row = pos[0] + move[0]
@@ -39,8 +52,8 @@ module Stepable
                 possible_moves << new_pos 
             end 
 
-            possible_moves
         end 
+        possible_moves
     end
 
     private 
