@@ -1,5 +1,4 @@
-require_relative'./Pieces.rb'
-require_relative './Board.rb'
+require_relative'./Piece.rb'
 
 class Knight < Piece
     include Stepable

@@ -1,12 +1,20 @@
+require_relative'./Piece.rb'
+# require_relative "./Board.rb"
+
 class King < Piece
     include Stepable
+
+    # def initialize
+    #     super
+    # end 
 
     def symbol
         # ♚
     end
 
-    protected 
+    self.moves 
 
+    protected 
     def move_diffs
         [
         [0,-1], #left

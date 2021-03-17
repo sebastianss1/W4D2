@@ -1,7 +1,5 @@
 require "byebug"
-
-require_relative "./Pieces/Piece.rb"
-
+require_relative "./Piece.rb"
 
 class Board
 
@@ -68,8 +66,8 @@ class Board
     end
 end 
 
-p b = Board.new
-p b.move_piece([9,0], [8,0])
+# p b = Board.new
+# p b.move_piece([9,0], [8,0])
 
 
 
