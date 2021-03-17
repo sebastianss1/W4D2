@@ -39,6 +39,7 @@ class Board
         
 
     def valid_pos?(pos)
+        p "inside valid-pos"
         r = pos[0]
         c = pos[1]
         if r > board.length-1 || r < 0 
@@ -53,18 +54,19 @@ class Board
 
     def move_piece(start_pos, end_pos)
         # debugger
-        if start_pos.nil? || !valid_pos?(start_pos)
+        if !valid_pos?(start_pos) || self[start_pos] == [nil] 
             raise "Select a valid starting position"
-        elsif
-            !valid_pos?(end_pos) && !end_pos.nil?
-            raise 'Select a valid end position'
         else
-           board[start_pos[0], start_pos[1]] = board[end_pos[0], end_pos[1]]
+            if !valid_pos?(end_pos) || !(self[end_pos] == [nil])
+                raise 'Select a valid end position'
+            else 
+                self[end_pos] = self[start_pos]
+                self[start_pos] = [nil]
+            end 
         end
+       
     end
-
-
 end 
 
-# p b = Board.new
-# p b.move_piece([0,0], [3,4])
+p b = Board.new
+p b.move_piece([9,0], [8,0])
