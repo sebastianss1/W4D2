@@ -1,17 +1,19 @@
+require_relative './Board.rb'
+require_relative './Piece.rb'
 module Slideable
 
     HORIONTAL_DIRS = [
-        [0,-1] #left
-        [0,1] #right
-        [-1,0] #up
-        [1,0] #down
+        [0,-1], #left
+        [0,1], #right
+        [-1,0], #up
+        [1,0], #down
     ].freeze
 
     DIAGONAL_DIRS = [
-        [-1,-1] #left up
-        [-1, 1] #right up
-        [1, -1] #left down
-        [1, 1] #right down
+        [-1,-1], #left up
+        [-1, 1], #right up
+        [1, -1], #left down
+        [1, 1], #right down
     ].freeze
 
     def horizontal_dirs
@@ -37,20 +39,36 @@ module Slideable
 
     private
     
-    def grow_unblocked_moves_in_dir(dx, dy) 
+    def grow_unblocked_moves_in_dir(dx, dy) #[0,0] [1,1]
+        unblocked_moves = []
+        i = dx+ self.pos[0] #-1
+        j = dy + self.pos[1] #-1
+        position = [i,j]
+        while board.valid_pos?(position)
+            if board[position] != [nil] && self.color != board[position].color
+                unblocked_moves << [i,j] 
+                break
+            elsif board[position] != [nil] && self.color == board[position].color
+                break
+            else
+                unblocked_moves << [i,j] 
+            end
+            i+= dx 
+            j+= dy 
+        end
+        # diff_pos = dx + self.pos[0], dy + self.pos[1]
+        # #1, 1
+        # new_moves = []
 
-        diff_pos = dx + self.pos[0], dy + self.pos[1]
-        #1, 1
-        new_moves = []
-
-        until !valid_pos(diff_pos)
-            diff_pos += [dx, dy]
-            new_moves << grow_unblocked_moves_in_dir(diff_pos[0], diff_pos[1])
-        end 
+        # until !valid_pos(diff_pos)
+        #     diff_pos += [dx, dy] 
+        #     new_moves << grow_unblocked_moves_in_dir(diff_pos[0], diff_pos[1])
+        # end 
         new_moves 
     end
 
 end
+
 
 
           #return an array = 

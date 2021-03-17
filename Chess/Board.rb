@@ -1,5 +1,6 @@
 require "byebug"
 require_relative "./Piece.rb"
+require_relative "./Queen.rb"
 
 class Board
 
@@ -8,12 +9,13 @@ class Board
         empty_board.each_with_index do |row, idx1|
             row.each_with_index do |ele, idx2|
                 if idx1 == 0 || idx1 == 1 || idx1 == 6 || idx1 == 7
-                    empty_board[idx1][idx2] = Piece.new 
+                    empty_board[idx1][idx2] = Piece.new(:W, self, [idx1, idx2]) 
                 end
             end
         end
         empty_board
     end 
+    #Piece.new requires (color, board, pos)
 
 
 
@@ -37,7 +39,6 @@ class Board
         
 
     def valid_pos?(pos)
-        p "inside valid-pos"
         r = pos[0]
         c = pos[1]
         if r > board.length-1 || r < 0 
